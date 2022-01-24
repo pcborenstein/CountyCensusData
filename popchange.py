@@ -52,6 +52,7 @@ for MSA in MSAs:
     matches = re.findall("\"(.*?)\"",MSA)
     MSAnum = int(matches[2])
     MSApop2020[MSAnum] = int(matches[0])
+    name = matches[1]
     mergedList2020.append((pop,name,MSAnum))
 
 sortedList = sorted(mergedList, reverse=True)[:20]
