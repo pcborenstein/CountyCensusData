@@ -105,17 +105,6 @@ pop2010 = np.array(pop2010)/1e6
 
 #plt.figure(figsize=(15,8))
 
-np.random.seed(19680801)
-
-pts = np.random.rand(30)*.2
-# Now let's make two outlier points which are far away from everything.
-pts[[3, 14]] += .8
-
-# If we were to simply plot pts, we'd lose most of the interesting
-# details due to the outliers. So let's 'break' or 'cut-out' the y-axis
-# into two portions - use the top (ax1) for the outliers, and the bottom
-# (ax2) for the details of the majority of our data
-
 
 ax2LowerBound = 8.8
 ratio = 5.5/(10 - ax2LowerBound)
@@ -165,11 +154,11 @@ plt.subplots_adjust(wspace=0.05)
 plt.show()
 
 
-#print queries to check data
-for i in useDict.keys():
-    print(useDict[i])
-    print(county2010Dict[i])
-    print("https://api.census.gov/data/2010/dec/sf1?get=P001001,NAME&for=county:{:03}&in=state:{:02}".format(i[0],i[1]))
-    print(county2020Dict[i])
-    print("https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county:{:03}&in=state:{:02}".format(i[0],i[1]))
+##print queries to check data
+#for i in useDict.keys():
+#    print(useDict[i])
+#    print(county2010Dict[i])
+#    print("https://api.census.gov/data/2010/dec/sf1?get=P001001,NAME&for=county:{:03}&in=state:{:02}".format(i[0],i[1]))
+#    print(county2020Dict[i])
+#    print("https://api.census.gov/data/2020/dec/pl?get=P1_001N,NAME&for=county:{:03}&in=state:{:02}".format(i[0],i[1]))
 
