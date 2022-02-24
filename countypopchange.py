@@ -68,7 +68,7 @@ county2010Dict = {}
 growthList = []
 
 #data is 2010 population, county #, county name, state #
-useDict[(31, 12)] = 'Duval, FL'
+useDict[(31, 12)] = '*** Duval, FL'
 for i in countyPop2010[:15]:
     useDict[(i[1], i[3])] = getName(i[2], i[3])
 
@@ -96,10 +96,10 @@ for i in growthList[:15]:
 ml = []
 
 for i in useDict.keys():
-    ml.append([county2020Dict[i], useDict[i], county2010Dict[i] ])
+    ml.append([county2020Dict[i], useDict[i], county2010Dict[i], (county2020Dict[i] - county2010Dict[i]) / county2010Dict[i]])
 
 ml = sorted(ml)
-pop2020, names, pop2010 = zip(*ml)
+pop2020, names, pop2010, percentage= zip(*ml)
 pop2020 = np.array(pop2020)/1e6
 pop2010 = np.array(pop2010)/1e6
 
@@ -117,7 +117,7 @@ color2010 = 'C5'
 color2020 = 'C2'
 ax2.barh(names, pop2020, color = color2020)
 ax2.barh(names, pop2010, color = color2010)
-ax1.barh(names, pop2020, color = color2020)
+bars = ax1.barh(names, pop2020, color = color2020)
 ax1.barh(names, pop2010, color = color2010) 
 
 ax2.set_xlim(ax2LowerBound, 10.5)
@@ -126,6 +126,14 @@ ax1.set_xticks([1,2,3,4,5])
 ax2.set_xticks([9,10])
 ax2.tick_params(axis='y', left=False)
 ax1.set_xlabel("Millions of People")
+
+count = 0
+for bar in bars:
+    x = bar.get_width() + 0.02
+    y = bar.get_y() + bar.get_height() / 3
+    ax1.annotate("{}%".format(int(round(percentage[count], 2)* 100)),xy=(x,y))
+    ax2.annotate("{}%".format(int(round(percentage[count], 2)* 100)),xy=(x,y))
+    count+=1
 
 ax1.spines.right.set_visible(False)
 ax2.spines.left.set_visible(False)
